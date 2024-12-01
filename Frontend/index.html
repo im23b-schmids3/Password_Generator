@@ -6,29 +6,46 @@
     <link rel="stylesheet" href="Stylesheet.css">
 </head>
 <body>
-<h1 class="h1"> Password Generator </h1>
-<label for="data">How many characters should the password be:</label>
+<h1 class="h1">Password Generator</h1>
+<label for="data">Enter the amount of characters you want:</label>
 <input type="text" id="data" required>
 <button type="submit" id="Submit">Submit</button>
+
 <p id="response"></p>
 
 <script>
     document.getElementById("Submit").addEventListener("click", async () => {
+        const responseElement = document.getElementById("response");
         const data = document.getElementById("data").value;
+
         try {
+            responseElement.className = "";
+
+            if (isNaN(data) || !Number.isInteger(Number(data))) {
+                throw new Error("ValueError");
+            }
+
             const response = await fetch("http://127.0.0.1:5000/submit", {
                 method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
+                headers: {"Content-Type": "application/json"},
                 body: JSON.stringify({data})
             });
             const result = await response.json();
-            document.getElementById("response").textContent = result.message;
-        } catch (error) {
-            console.error("Fehler:", error);
-            document.getElementById("response").textContent = "Ein Fehler ist aufgetreten.";
+
+            responseElement.textContent = result.message;
+            responseElement.classList.add("success");
+
+        } catch (e) {
+            if (e.message === "ValueError") {
+                responseElement.textContent = "Error: Only integers are allowed.";
+            } else {
+                responseElement.textContent = "An error occurred.";
+            }
+            responseElement.classList.add("error");
+            console.error("Error:", e);
         }
+
+        document.getElementById("data").value = "";
     });
 </script>
 
