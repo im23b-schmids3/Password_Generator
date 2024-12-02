@@ -18,35 +18,37 @@
         const responseElement = document.getElementById("response");
         const data = document.getElementById("data").value;
 
+
+        responseElement.className = "";
+
+        if (isNaN(data) || !Number.isInteger(Number(data))) {
+            responseElement.textContent = "Error: Only integers are allowed.";
+            responseElement.classList.add("error");
+            return;
+        }
         try {
-            responseElement.className = "";
-
-            if (isNaN(data) || !Number.isInteger(Number(data))) {
-                throw new Error("ValueError");
-            }
-
             const response = await fetch("http://127.0.0.1:5000/submit", {
                 method: "POST",
                 headers: {"Content-Type": "application/json"},
                 body: JSON.stringify({data})
             });
+
+
             const result = await response.json();
-
-            responseElement.textContent = result.message;
-            responseElement.classList.add("success");
-
-        } catch (e) {
-            if (e.message === "ValueError") {
-                responseElement.textContent = "Error: Only integers are allowed.";
+            if (response.ok) {
+                responseElement.textContent = result.message;
+                responseElement.classList.add("success");
             } else {
-                responseElement.textContent = "An error occurred.";
+                responseElement.textContent = "Connection failed";
+                responseElement.classList.add("error");
             }
+        } catch (err) {
+            responseElement.textContent = `Error: ${err.message}`
             responseElement.classList.add("error");
-            console.error("Error:", e);
         }
-
         document.getElementById("data").value = "";
-    });
+    })
+
 </script>
 
 </body>
