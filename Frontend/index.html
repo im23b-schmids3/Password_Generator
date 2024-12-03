@@ -12,14 +12,16 @@
 <button type="submit" id="Submit">Submit</button>
 
 <p id="response"></p>
+<button id="copyButton" style="display: none;">Copy</button>
 
 <script>
     document.getElementById("Submit").addEventListener("click", async () => {
         const responseElement = document.getElementById("response");
         const data = document.getElementById("data").value;
-
+        const copyButton = document.getElementById("copyButton");
 
         responseElement.className = "";
+        copyButton.style.display = "none";
 
         if (isNaN(data) || !Number.isInteger(Number(data))) {
             responseElement.textContent = "Error: Only integers are allowed.";
@@ -38,6 +40,7 @@
             if (response.ok) {
                 responseElement.textContent = result.message;
                 responseElement.classList.add("success");
+                copyButton.style.display = "block";
             } else {
                 responseElement.textContent = "Connection failed";
                 responseElement.classList.add("error");
@@ -48,7 +51,16 @@
         }
         document.getElementById("data").value = "";
     })
-
+    document.getElementById("copyButton").addEventListener("click", async () => {
+        try {
+            const passwordText = document.getElementById("response").textContent;
+            const textToCopy = passwordText.split(":")[1]?.trim();
+            await navigator.clipboard.writeText(textToCopy);
+            alert("Passwort erfolgreich kopiert!");
+        } catch (err) {
+            alert("Fehler beim Kopieren: " + err);
+        }
+    });
 </script>
 
 </body>
