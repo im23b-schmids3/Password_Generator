@@ -11,17 +11,46 @@
 <input type="text" id="data" required>
 <button type="submit" id="Submit">Submit</button>
 
-<p id="response"></p>
-<button id="copyButton" style="display: none;">Copy</button>
+<div class="container">
+    <p id="response"></p>
+
+    <! -- Inspired button from uiverse.io Galahhad -->
+    <button
+            id="copyButton"
+            class="relative flex items-center justify-center w-6 h-6 rounded-lg bg-gray-800 text-gray-300 outline-none hover:bg-gray-700 hover:text-blue-400 focus:ring-1 focus:ring-gray-500"
+    >
+  <span
+          data-text-end="Copied!"
+          data-text-initial="Copy to clipboard"
+          class="absolute left-1/2 top-0 z-10 hidden -translate-x-1/2 -translate-y-full whitespace-nowrap rounded-md bg-gray-200 px-2 py-1 text-xs font-mono text-gray-800 shadow"
+  ></span>
+        <span class="flex items-center justify-center">
+    <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="cp-clipboard"
+            fill="currentColor"
+            viewBox="0 0 6.35 6.35"
+            width="20"
+            height="20"
+    >
+      <path
+              d="M2.43.265c-.3 0-.548.236-.573.53h-.328a.74.74 0 0 0-.735.734v3.822a.74.74 0 0 0 .735.734H4.82a.74.74 0 0 0 .735-.734V1.529a.74.74 0 0 0-.735-.735h-.328a.58.58 0 0 0-.573-.53zm0 .529h1.49c.032 0 .049.017.049.049v.431c0 .032-.017.049-.049.049H2.43c-.032 0-.05-.017-.05-.049V.843c0-.032.018-.05.05-.05zm-.901.53h.328c.026.292.274.528.573.528h1.49a.58.58 0 0 0 .573-.529h.328a.2.2 0 0 1 .206.206v3.822a.2.2 0 0 1-.206.205H1.53a.2.2 0 0 1-.206-.205V1.529a.2.2 0 0 1 .206-.206z"
+      ></path>
+    </svg>
+  </span>
+    </button>
+</div>
 
 <script>
+    document.getElementById("copyButton").style.visibility = "hidden";
+
     document.getElementById("Submit").addEventListener("click", async () => {
         const responseElement = document.getElementById("response");
         const data = document.getElementById("data").value;
         const copyButton = document.getElementById("copyButton");
 
         responseElement.className = "";
-        copyButton.style.display = "none";
+
 
         if (isNaN(data) || !Number.isInteger(Number(data))) {
             responseElement.textContent = "Error: Only integers are allowed.";
@@ -40,7 +69,7 @@
             if (response.ok) {
                 responseElement.textContent = result.message;
                 responseElement.classList.add("success");
-                copyButton.style.display = "block";
+                copyButton.style.visibility = "visible";
             } else {
                 responseElement.textContent = "Connection failed";
                 responseElement.classList.add("error");

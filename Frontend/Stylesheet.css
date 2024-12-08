@@ -59,18 +59,7 @@ button:hover {
     color: #dc3545;
 }
 
-#copyButton {
-    padding: 10px 20px;
-    background-color: #28a745;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    font-size: 1rem;
-    cursor: pointer;
-    margin-top: 10px;
-    transition: background-color 0.3s ease;
-}
-
-#copyButton:hover {
-    background-color: #218838;
+.container {
+    display: flex;
+    column-gap: 15px;
 }
