@@ -8,4 +8,4 @@ pip install flask
 pip install flask_cors
 ```
 # Autor
-Erstellt von Sandro Schmid 
+Erstellt von **[im23b-schmids3](https://github.com/im23b-schmids3)**
