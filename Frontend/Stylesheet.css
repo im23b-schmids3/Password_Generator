@@ -21,7 +21,7 @@ label {
     font-size: 1.2rem;
     margin-bottom: 10px;
 }
-
+/* Style for the user input field */
 input[type="text"] {
     width: 300px;
     padding: 10px;
@@ -50,11 +50,11 @@ button:hover {
     margin-top: 20px;
     font-size: 1.2rem;
 }
-
+/* Class for displaying success messages */
 .success {
     color: #28a745;
 }
-
+/* Class for displaying error messages */
 .error {
     color: #dc3545;
 }

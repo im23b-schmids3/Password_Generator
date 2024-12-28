@@ -7,14 +7,18 @@
 </head>
 <body>
 <h1 class="h1">Password Generator</h1>
+
+<!-- Input field for the user to specify password length -->
 <label for="data">Enter the amount of characters you want:</label>
 <input type="text" id="data" required>
+
+<!-- Button to submit password length and generate password -->
 <button type="submit" id="Submit">Submit</button>
 
 <div class="container">
     <p id="response"></p>
 
-    <! -- Inspired button from uiverse.io Galahhad -->
+    <!--  Copy button styled with inspiration from uiverse.io Galahhad -->
     <button
             id="copyButton"
             class="relative flex items-center justify-center w-6 h-6 rounded-lg bg-gray-800 text-gray-300 outline-none hover:bg-gray-700 hover:text-blue-400 focus:ring-1 focus:ring-gray-500"
@@ -44,6 +48,7 @@
 <script>
     document.getElementById("copyButton").style.visibility = "hidden";
 
+    // Event listener for generating the password
     document.getElementById("Submit").addEventListener("click", async () => {
         const responseElement = document.getElementById("response");
         const data = document.getElementById("data").value;
@@ -80,6 +85,7 @@
         }
         document.getElementById("data").value = "";
     })
+    // Event listener for copying the generated password
     document.getElementById("copyButton").addEventListener("click", async () => {
         try {
             const passwordText = document.getElementById("response").textContent;
